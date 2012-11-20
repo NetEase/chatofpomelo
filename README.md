@@ -10,12 +10,12 @@ Both of them can be installed via 'sh npm-install.sh' (it will install a local c
 
 ## Viewing
 
- * Visit [demo game github](http://github.com/py8765/chatofpomelo)to get the source code and install it on your local machine.
+ * Visit [demo game github](https://github.com/NetEase/chatofpomelo) to get the source code and install it on your local machine.
 
 ## Configuration
 
  * The server setting (server number, host and port, etc.) can be configured in 'game-server/config/servers.json' and 'game-server/config/master.json' files.
- * Other settings (log4js, redis, aoi, etc.) also can be configured in 'config' folder.
+ * Other settings (log4js etc.) also can be configured in 'game-server/config' folder.
 
 ## Deployment
 Enter chatofpomelo/game-server, and run 'pomelo start' or 'node app.js' in order to start the game server.
@@ -48,4 +48,4 @@ MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
 IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
 CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
 TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
-SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+SOFTWARE OR THE USE OR OT`HER DEALINGS IN THE SOFTWARE.
