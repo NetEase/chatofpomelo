@@ -1,7 +1,7 @@
 var chatRemote = require('../remote/chatRemote');
 
 module.exports = function(app) {
-     return new Handler(app);
+	return new Handler(app);
 };
 
 var Handler = function(app) {
@@ -19,31 +19,31 @@ var handler = Handler.prototype;
  *
  */
 handler.send = function(msg, session, next) {
-    var channelService = this.app.get('channelService');
-    var param = {
-        route: 'onChat',
-        msg: msg.content,
-        from: msg.from,
-        target: msg.target
-    };
-    channel = channelService.getChannel(msg.rid, false);
+	var channelService = this.app.get('channelService');
+	var param = {
+		route: 'onChat',
+		msg: msg.content,
+		from: msg.from,
+		target: msg.target
+	};
+	channel = channelService.getChannel(msg.rid, false);
 
-    //the target is all users
-    if(msg.target == 0) {
-        channel.pushMessage(param);
-    }
-    //the target is specific user
-    else {
-        var tuid = msg.target + '*' + msg.rid;
-        var tsid = channel.getMember(tuid)['sid'];
-        channelService.pushMessageByUids(param, [{
-            uid: tuid,
-            sid: tsid
-        }]);
-    }
-    next(null, {
-        route: msg.route
-    });
+	//the target is all users
+	if(msg.target == '*') {
+		channel.pushMessage(param);
+	}
+	//the target is specific user
+	else {
+		var tuid = msg.target + '*' + msg.rid;
+		var tsid = channel.getMember(tuid)['sid'];
+		channelService.pushMessageByUids(param, [{
+			uid: tuid,
+			sid: tsid
+		}]);
+	}
+	next(null, {
+		route: msg.route
+	});
 };
 
 /**
@@ -55,9 +55,9 @@ handler.send = function(msg, session, next) {
  *
  */
 handler.getUsers = function(msg, session, next) {
-    var remote = chatRemote(this.app);
-    var users = remote.get(msg.rid, false);
-    next(null, {
-        users: users
-    });
+	var remote = chatRemote(this.app);
+	var users = remote.get(msg.rid, false);
+	next(null, {
+		users: users
+	});
 };

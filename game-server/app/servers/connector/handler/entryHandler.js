@@ -4,7 +4,7 @@ module.exports = function(app) {
 
 var Handler = function(app) {
 		this.app = app;
-	};
+};
 
 var handler = Handler.prototype;
 
@@ -57,8 +57,8 @@ handler.enter = function(msg, session, next) {
  *
  */
 var onUserLeave = function(app, session) {
-		if(!session || !session.uid) {
-			return;
-		}
-		app.rpc.chat.chatRemote.kick(session, session.uid, app.get('serverId'), session.get('rid'), null);
-	};
+	if(!session || !session.uid) {
+		return;
+	}
+	app.rpc.chat.chatRemote.kick(session, session.uid, app.get('serverId'), session.get('rid'), null);
+};

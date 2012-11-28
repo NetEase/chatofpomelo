@@ -1,11 +1,11 @@
 var dispatcher = require('../../../util/dispatcher');
 
 module.exports = function(app) {
-       return new Handler(app);
+	return new Handler(app);
 };
 
 var Handler = function(app) {
-       this.app = app;
+	this.app = app;
 };
 
 var handler = Handler.prototype;
@@ -26,7 +26,7 @@ handler.queryEntry = function(msg, session, next) {
 		});
 		return;
 	}
-    // get all connectors
+	// get all connectors
 	var connectors = this.app.getServersByType('connector');
 	if(!connectors || connectors.length === 0) {
 		next(null, {
@@ -34,7 +34,7 @@ handler.queryEntry = function(msg, session, next) {
 		});
 		return;
 	}
-    // select connector
+	// select connector
 	var res = dispatcher.dispatch(uid, connectors);
 	next(null, {
 		code: 200,
