@@ -75,32 +75,21 @@ function addMessage(from, target, text, time) {
 	scrollDown(base);
 };
 
-// init online users in select
-function initSelectUsers() {
+// update online users in select
+function updateSelectUsers(data) {
+	var selected = $("#usersList").val();
+	users = data.users;
+	$("#usersList option").each(
+		function() {
+			if($(this).val() != '*') $(this).remove();
+	});
 	for(var i = 0; i < users.length; i++) {
 		var slElement = $(document.createElement("option"));
 		slElement.attr("value", users[i]);
 		slElement.text(users[i]);
 		$("#usersList").append(slElement);
 	}
-};
-
-// update online users in select
-function updateSelectUsers() {
-	var route = "chat.chatHandler.getUsers";
-	var selected = $("#usersList").val();
-	pomelo.request(route, {
-		rid: rid
-	}, function(data) {
-		users = data.users;
-		$("#usersList option").each(
-
-		function() {
-			if($(this).val() != '*') $(this).remove();
-		});
-		initSelectUsers();
-		$("#usersList").attr("value", selected);
-	});
+	$("#usersList").attr("value", selected);
 };
 
 // set your name
@@ -168,6 +157,11 @@ $(document).ready(function() {
 		$("#chatHistory").show();
 	});
 
+	//update user list
+	pomelo.on('onUsers', function(data) {
+		updateSelectUsers(data);
+	});
+
 
 	//handle disconect message, occours when the client is disconnect with servers
 	pomelo.on('disconnect', function(reason) {
@@ -205,14 +199,9 @@ $(document).ready(function() {
 						showError(DUPLICATE_ERROR);
 						return;
 					}
-					users = data.users;
-					initSelectUsers();
 					setName();
 					setRoom();
 					showChat();
-					setInterval(function() {
-						updateSelectUsers();
-					}, 5 * 1000);
 				});
 			});
 		});

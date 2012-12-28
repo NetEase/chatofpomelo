@@ -14,15 +14,18 @@ var ChatRemote = function(app) {
  * @param {String} sid server id
  * @param {String} name channel name
  * @param {boolean} flag channel parameter
- * @param {Callback} cb
  *
  */
-ChatRemote.prototype.add = function(uid, sid, name, flag, cb) {
+ChatRemote.prototype.add = function(uid, sid, name, flag) {
 	var channel = this.channelService.getChannel(name, flag);
 	if( !! channel) {
 	channel.add(uid, sid);
 	}
-	cb(this.get(name, flag));
+	var param = {
+		route: 'onUsers',
+		users: this.get(name, flag),
+	};
+	channel.pushMessage(param);
 };
 
 /**

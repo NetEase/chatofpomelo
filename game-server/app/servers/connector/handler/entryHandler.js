@@ -41,11 +41,10 @@ handler.enter = function(msg, session, next) {
 	session.on('closed', onUserLeave.bind(null, self.app));
 
 	//put user into channel
-	self.app.rpc.chat.chatRemote.add(session, uid, self.app.get('serverId'), rid, true, function(users) {
-		next(null, {
-			code: 200,
-			users: users
-		});
+	self.app.rpc.chat.chatRemote.add(session, uid, self.app.get('serverId'), rid, true);
+
+	next(null, {
+		route: msg.route
 	});
 };
 
