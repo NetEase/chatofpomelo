@@ -75,21 +75,23 @@ function addMessage(from, target, text, time) {
 	scrollDown(base);
 };
 
-// update online users in select
-function updateSelectUsers(data) {
-	var selected = $("#usersList").val();
+// init user list
+function initUserList(data) {
 	users = data.users;
-	$("#usersList option").each(
-		function() {
-			if($(this).val() !== '*') $(this).remove();
-	});
 	for(var i = 0; i < users.length; i++) {
 		var slElement = $(document.createElement("option"));
 		slElement.attr("value", users[i]);
 		slElement.text(users[i]);
 		$("#usersList").append(slElement);
 	}
-	$("#usersList").attr("value", selected);
+};
+
+// add user in user list
+function addUser(user) {
+	var slElement = $(document.createElement("option"));
+	slElement.attr("value", user);
+	slElement.text(user);
+	$("#usersList").append(slElement);
 };
 
 // remove user from user list
@@ -166,8 +168,8 @@ $(document).ready(function() {
 	});
 
 	//update user list
-	pomelo.on('onUsers', function(data) {
-		updateSelectUsers(data);
+	pomelo.on('onAdd', function(data) {
+		addUser(data.user);
 	});
 
 	//update user list
@@ -215,6 +217,7 @@ $(document).ready(function() {
 					setName();
 					setRoom();
 					showChat();
+					initUserList(data);
 				});
 			});
 		});
