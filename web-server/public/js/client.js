@@ -81,7 +81,7 @@ function updateSelectUsers(data) {
 	users = data.users;
 	$("#usersList option").each(
 		function() {
-			if($(this).val() != '*') $(this).remove();
+			if($(this).val() !== '*') $(this).remove();
 	});
 	for(var i = 0; i < users.length; i++) {
 		var slElement = $(document.createElement("option"));
@@ -90,6 +90,14 @@ function updateSelectUsers(data) {
 		$("#usersList").append(slElement);
 	}
 	$("#usersList").attr("value", selected);
+};
+
+// remove user from user list
+function removeUser(user) {
+	$("#usersList option").each(
+		function() {
+			if($(this).val() === user) $(this).remove();
+	});
 };
 
 // set your name
@@ -160,6 +168,11 @@ $(document).ready(function() {
 	//update user list
 	pomelo.on('onUsers', function(data) {
 		updateSelectUsers(data);
+	});
+
+	//update user list
+	pomelo.on('onLeave', function(data) {
+		removeUser(data.user);
 	});
 
 
