@@ -114,3 +114,68 @@ body, table {
     font-weight: bold;
     padding: 0 1em 0 0.5em;
 }
+
+#pop {
+    display: none;
+    background: #fff;
+    width: 260px;
+    height: 152px;
+    border: 1px solid #e0e0e0;
+    font-size: 12px;
+    font-family: DejaVu Sans Mono, fixed;
+    position: fixed;
+    right: 10px;
+    bottom: 10px;
+}
+
+#popHead {
+    line-height: 40px;
+    background: #E74C65;
+    border-bottom: 1px solid #e0e0e0;
+    position: relative;
+    font-size: 12px;
+    padding: 0 0 0 10px;
+}
+
+#popHead h2 {
+    font-size: 14px;
+    color: #666;
+    line-height: 40px;
+    height: 32px;
+    margin-top: -12px;
+}
+
+#popHead #popClose {
+    position: absolute;
+    right: 10px;
+    top: 1px;
+}
+
+#popHead a#popClose:hover {
+    color: #f00;
+    cursor: pointer;
+}
+
+#popContent {
+    padding: 20px 10px;
+}
+
+#popIntro {
+    text-align: center;
+    line-height: 160%;
+    margin: 5px 0;
+    color: #000;
+    font-size: 12pt;
+}
+
+#popMore {
+    text-align: right;
+    border-top: 1px solid #ccc;
+    line-height: 24px;
+    padding-top: 5px;
+}
+
+#popMore:hover {
+    color: #f00;
+    cursor: pointer;
+}

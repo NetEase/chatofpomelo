@@ -75,6 +75,26 @@ function addMessage(from, target, text, time) {
 	scrollDown(base);
 };
 
+// show tip
+function tip(type, name) {
+	var tip,title;
+	switch(type){
+		case 'online':
+			tip = name + ' is online now.';
+			title = 'Online Notify';
+			break;
+		case 'offline':
+			tip = name + ' is offline now.';
+			title = 'Offline Notify';
+			break;
+		case 'message':
+			tip = name + ' is saying now.'
+			title = 'Message Notify';
+			break;
+	}
+	var pop=new Pop(title, tip);
+};
+
 // init user list
 function initUserList(data) {
 	users = data.users;
@@ -165,16 +185,22 @@ $(document).ready(function() {
 	pomelo.on('onChat', function(data) {
 		addMessage(data.from, data.target, data.msg);
 		$("#chatHistory").show();
+		if(data.from !== username)
+			tip('message', data.from);
 	});
 
 	//update user list
 	pomelo.on('onAdd', function(data) {
-		addUser(data.user);
+		var user = data.user;
+		tip('online', user);
+		addUser(user);
 	});
 
 	//update user list
 	pomelo.on('onLeave', function(data) {
-		removeUser(data.user);
+		var user = data.user;
+		tip('offline', user);
+		removeUser(user);
 	});
 
 
