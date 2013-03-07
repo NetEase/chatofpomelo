@@ -39,6 +39,6 @@ handler.queryEntry = function(msg, session, next) {
 	next(null, {
 		code: 200,
 		host: res.host,
-		port: res.wsPort
+		port: res.clientPort
 	});
 };
