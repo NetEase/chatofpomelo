@@ -1,5 +1,3 @@
-var chatRemote = require('../remote/chatRemote');
-
 module.exports = function(app) {
 	return new Handler(app);
 };
@@ -20,30 +18,44 @@ var handler = Handler.prototype;
  */
 handler.send = function(msg, session, next) {
 	var rid = session.get('rid');
+	var route = 'onChat';
 	var username = session.uid.split('*')[0];
-	var channelService = this.app.get('channelService');
+
+	var globalChannelService = this.app.get('globalChannelService');
+	var statusService = this.app.get('statusService');
+
 	var param = {
-		route: 'onChat',
+		route: route,
 		msg: msg.content,
 		from: username,
 		target: msg.target
 	};
-	channel = channelService.getChannel(rid, false);
 
 	//the target is all users
 	if(msg.target == '*') {
-		channel.pushMessage(param);
+		globalChannelService.pushMessage('connector', route, param, rid, {isPush: true}, function(err, fails) {
+			if(err) {
+				console.error('send message to all users error: %j, fail ids: %j', err, fails);
+				return;
+			}
+			next(null, {
+				route: msg.route
+			});
+		});
 	}
 	//the target is specific user
 	else {
-		var tuid = msg.target + '*' + rid;
-		var tsid = channel.getMember(tuid)['sid'];
-		channelService.pushMessageByUids(param, [{
-			uid: tuid,
-			sid: tsid
-		}]);
+		var uid = msg.target + '*' + rid;
+		var uids = [uid];
+		statusService.pushByUids(uids, route, param, function(err) {
+			if(err) {
+				console.error('send message to user %s failed, error: %j', uid, err);
+				return;
+			}
+			next(null, {
+				route: msg.route
+			});
+		});
 	}
-	next(null, {
-		route: msg.route
-	});
+	
 };
