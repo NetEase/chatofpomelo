@@ -1,5 +1,3 @@
-var countDownLatch = require('../../../util/countDownLatch');
-
 module.exports = function(app) {
 	return new Handler(app);
 };
