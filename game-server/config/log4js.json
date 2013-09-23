@@ -3,7 +3,7 @@
     {
       "type": "file",
       "filename": "./logs/node-log-${opts:serverId}.log",
-      "fileSize": 1048576,
+      "maxLogSize": 1048576,
       "layout": {
         "type": "basic"
       }, 
@@ -16,7 +16,7 @@
       "type": "file",
       "filename": "./logs/con-log-${opts:serverId}.log", 
       "pattern": "connector", 
-      "fileSize": 1048576,
+      "maxLogSize": 1048576,
       "layout": {
           "type": "basic"
         }
@@ -26,7 +26,7 @@
     {
       "type": "file",
       "filename": "./logs/rpc-log-${opts:serverId}.log",
-      "fileSize": 1048576,
+      "maxLogSize": 1048576,
       "layout": {
           "type": "basic"
         }
@@ -36,7 +36,7 @@
     {
       "type": "file",
       "filename": "./logs/rpc-debug-${opts:serverId}.log",
-      "fileSize": 1048576,
+      "maxLogSize": 1048576,
       "layout": {
           "type": "basic"
       },
@@ -46,7 +46,7 @@
     {
       "type": "file",
       "filename": "./logs/forward-log-${opts:serverId}.log",
-      "fileSize": 1048576,
+      "maxLogSize": 1048576,
       "layout": {
           "type": "basic"
         }
@@ -56,7 +56,7 @@
     {
       "type": "file",
       "filename": "./logs/crash.log",
-      "fileSize": 1048576,
+      "maxLogSize": 1048576,
       "layout": {
           "type": "basic"
         }
