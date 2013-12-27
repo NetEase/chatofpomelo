@@ -61,7 +61,7 @@ ChatRemote.prototype.get = function(name, flag) {
  * @param {String} name channel name
  *
  */
-ChatRemote.prototype.kick = function(uid, sid, name) {
+ChatRemote.prototype.kick = function(uid, sid, name, cb) {
 	var channel = this.channelService.getChannel(name, false);
 	// leave channel
 	if( !! channel) {
@@ -73,4 +73,5 @@ ChatRemote.prototype.kick = function(uid, sid, name) {
 		user: username
 	};
 	channel.pushMessage(param);
+	cb();
 };
