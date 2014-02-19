@@ -1,5 +1,7 @@
 var pomelo = require('pomelo');
+var zmq = require('pomelo-rpc-zeromq');
 var routeUtil = require('./app/util/routeUtil');
+
 /**
  * Init app for client.
  */
@@ -14,6 +16,15 @@ app.configure('production|development', function() {
 
 	// filter configures
 	app.filter(pomelo.timeout());
+
+	app.set('proxyConfig', {
+		rpcClient: zmq.client
+	});
+
+	app.set('remoteConfig', {
+		rpcServer: zmq.server
+	});
+
 });
 
 // start app
