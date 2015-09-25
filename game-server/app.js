@@ -14,6 +14,11 @@ app.configure('production|development', function() {
 
 	// filter configures
 	app.filter(pomelo.timeout());
+
+	app.set('monitorConfig', {
+		monitor:pomelo.monitors.zookeepermonitor,
+		servers:'127.0.0.1:2181'
+	});
 });
 
 // start app
