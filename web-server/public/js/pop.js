@@ -1,4 +1,4 @@
-﻿﻿ (function($j) {
+jQuery(function($j) {
     $j.positionFixed = function(el) {
         $j(el).each(function() {
             new fixed(this)
@@ -73,7 +73,7 @@
             }
         }
     })
-})(jQuery)
+})
 
 jQuery(function($j) {
     $j('#footer').positionFixed()
