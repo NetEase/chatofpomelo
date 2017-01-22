@@ -11,7 +11,15 @@ app.set('name', 'chatofpomelo');
 app.configure('production|development', function() {
 	// route configures
 	app.route('chat', routeUtil.chat);
-
+	app.set('connectorConfig', {
+		connector: pomelo.connectors.sioconnector,
+		// 'websocket', 'polling-xhr', 'polling-jsonp', 'polling'
+		transports: ['websocket', 'polling'],
+		heartbeats: true,
+		closeTimeout: 60 * 1000,
+		heartbeatTimeout: 60 * 1000,
+		heartbeatInterval: 25 * 1000
+	});
 	// filter configures
 	app.filter(pomelo.timeout());
 });
